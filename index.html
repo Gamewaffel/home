@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Web-Homescreen</title>
+    <style>
+        :root {
+            --primary-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+            --accent-color: #4a90e2;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+        h1 { margin-bottom: 40px; font-weight: 300; letter-spacing: 2px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 900px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            border: 1px solid #3d3d3d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .icon {
+            width: 54px;
+            height: 54px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #444;
+        }
+        .name { font-size: 1rem; font-weight: 500; text-transform: capitalize; }
+    </style>
+</head>
+<body>
 
+    <h1>Dashboard</h1>
+
+    <div class="grid" id="linkGrid"></div>
+
+    <script>
+        // Deine spezifischen Domains
+        const sites = [
+            { name: "Minecraft Server", url: "https://gamewaffel.github.io/minecraftserver/" },
+            { name: "Mathe Hilfe", url: "https://gamewaffel.github.io/mathe/" },
+            { name: "Giga DIY", url: "https://gamewaffel.github.io/gigadiy/" }
+        ];
+
+        const grid = document.getElementById('linkGrid');
+
+        sites.forEach(site => {
+            const domain = new URL(site.url).hostname;
+            const card = document.createElement('a');
+            card.className = 'card';
+            card.href = site.url;
+            card.target = "_blank";
+
+            card.innerHTML = `
+                <img class="icon" src="https://www.google.com/s2/favicons?sz=128&domain=${domain}" 
+                     onerror="this.src='https://via.placeholder.com/64?text=?'">
+                <div class="name">${site.name}</div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
